@@ -4,8 +4,8 @@ import MainBuilding from './MainBuilding'
 
 window.addEventListener('DOMContentLoaded', init)
 
-const windowWidth = 613
-const windowHeight = 1375
+const windowWidth = 600
+const windowHeight = 800
 
 function init() {
   const renderer = new THREE.WebGLRenderer({ antialias: true })
@@ -44,6 +44,7 @@ function init() {
   scene.add(plane)
 
   const building = new MainBuilding()
+  building.position.z = 50
   scene.add(building)
 
   animation()
