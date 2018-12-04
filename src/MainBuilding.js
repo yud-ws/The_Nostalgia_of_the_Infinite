@@ -1,6 +1,6 @@
-import 'imports-loader?THREE=three!three/examples/js/QuickHull.js'
-import 'imports-loader?THREE=three!three/examples/js/geometries/ConvexGeometry.js'
-import * as THREE from 'three'
+import 'imports-loader?THREE=three!three/examples/js/QuickHull.js';
+import 'imports-loader?THREE=three!three/examples/js/geometries/ConvexGeometry.js';
+import * as THREE from 'three';
 
 export default class MainBuilding extends THREE.Object3D {
   constructor() {
@@ -49,7 +49,11 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.Vector3(-this.tBW / 2 + windowX1 + 10, windowY, -10 - windowX1),
       new THREE.Vector3(-10, windowY, -10 - windowX1),
       new THREE.Vector3(-10 + 2, windowY + 10, -10 - windowX2),
-      new THREE.Vector3(-this.tBW / 2 + windowX2 + 10, windowY + 10, -10 - windowX2),
+      new THREE.Vector3(
+          -this.tBW / 2 + windowX2 + 10,
+          windowY + 10,
+          -10 - windowX2
+      ),
     ]
     const geo2 = new THREE.ConvexGeometry(towertVertices2)
     const mesh2 = new THREE.Mesh(geo2, this.material)
@@ -63,7 +67,11 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.Vector3(this.tBW / 2 - windowX1 - 10, windowY, -10 - windowX1),
       new THREE.Vector3(10, windowY, -10 - windowX1),
       new THREE.Vector3(10 - 2, windowY + 10, -10 - windowX2),
-      new THREE.Vector3(this.tBW / 2 - windowX2 - 10, windowY + 10, -10 - windowX2),
+      new THREE.Vector3(
+          this.tBW / 2 - windowX2 - 10,
+          windowY + 10,
+          -10 - windowX2
+      ),
     ]
     const geo3 = new THREE.ConvexGeometry(towertVertices3)
     const mesh3 = new THREE.Mesh(geo3, this.material)
@@ -74,8 +82,16 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.Vector3(this.tTW / 2, this.towerHeight, -40),
       new THREE.Vector3(-this.tTW / 2, this.towerHeight, -40),
       // ----------------------------------------------
-      new THREE.Vector3(-this.tBW / 2 + windowX2 + 10, windowY + 10, - 10 - windowX2),
-      new THREE.Vector3(this.tBW / 2 - windowX2 - 10, windowY + 10, -10 - windowX2),
+      new THREE.Vector3(
+          -this.tBW / 2 + windowX2 + 10,
+          windowY + 10,
+          -10 - windowX2
+      ),
+      new THREE.Vector3(
+          this.tBW / 2 - windowX2 - 10,
+          windowY + 10,
+          -10 - windowX2
+      ),
       new THREE.Vector3(this.tTW / 2 - 10, this.towerHeight, -50),
       new THREE.Vector3(-this.tTW / 2 + 10, this.towerHeight, -50),
     ]
@@ -110,11 +126,18 @@ export default class MainBuilding extends THREE.Object3D {
     face4.rotation.y = Math.PI
     face4.position.z = -this.tBW
 
+    const roofs = new THREE.Object3D()
+
+    const roof1 = this.createRoof(127.2, 40, 'top')
+
+    roofs.add(roof1)
+
     tower.add(face1)
     tower.add(face2)
     tower.add(face3)
     tower.add(face4)
     tower.add(face5)
+    tower.add(roofs)
 
     return tower
   }
@@ -181,8 +204,8 @@ export default class MainBuilding extends THREE.Object3D {
     face4.position.z = -this.tBW - 20 - 30
 
     const stick1 = new THREE.Mesh(
-      new THREE.BoxGeometry(10, 60, 10),
-      this.material
+        new THREE.BoxGeometry(10, 60, 10),
+        this.material
     )
 
     const stick2 = stick1.clone()
@@ -206,15 +229,15 @@ export default class MainBuilding extends THREE.Object3D {
     stick4.position.z = -this.tBW - 20 - 35
 
     const top = new THREE.Mesh(
-      new THREE.BoxGeometry(this.tBW + 40, 10, this.tBW + 40),
-      this.material
+        new THREE.BoxGeometry(this.tBW + 40, 10, this.tBW + 40),
+        this.material
     )
     top.position.y = 55
     top.position.z = -this.tBW / 2 - 20 - 10
 
     const bottom = new THREE.Mesh(
-      new THREE.BoxGeometry(this.tBW + 40 + 20, 10, this.tBW + 40 + 20),
-      this.material
+        new THREE.BoxGeometry(this.tBW + 40 + 20, 10, this.tBW + 40 + 20),
+        this.material
     )
     bottom.position.y = -5
     bottom.position.z = -this.tBW / 2 - 20 - 10
@@ -279,101 +302,37 @@ export default class MainBuilding extends THREE.Object3D {
     const mesh1 = new THREE.Mesh(geo1, this.material)
 
     const curve = new THREE.QuadraticBezierCurve3(
-      new THREE.Vector3(-15, 0, 0),
-      new THREE.Vector3(0, 20, 0),
-      new THREE.Vector3(15, 0, 0)
+        new THREE.Vector3(-15, 0, 0),
+        new THREE.Vector3(0, 20, 0),
+        new THREE.Vector3(15, 0, 0)
     )
     const curvePoint = curve.getPoints(40)
     for (let i = 0; i < curvePoint.length; i++) {
       if (i > 0) {
         if (i < 20) {
           const curveVertices = [
-            new THREE.Vector3(
-              curvePoint[i].x,
-              curvePoint[i].y,
-              0,
-            ),
-            new THREE.Vector3(
-              curvePoint[i].x,
-              curvePoint[i].y,
-              -10,
-            ),
-            new THREE.Vector3(
-              curvePoint[i - 1].x,
-              curvePoint[i - 1].y,
-              -10,
-            ),
-            new THREE.Vector3(
-              curvePoint[i - 1].x,
-              curvePoint[i - 1].y,
-              0,
-            ),
-            new THREE.Vector3(
-              -this.tBW / 2 - 40,
-              curvePoint[i].y,
-              0,
-            ),
-            new THREE.Vector3(
-              -this.tBW / 2 - 40,
-              curvePoint[i].y,
-              -10,
-            ),
-            new THREE.Vector3(
-              -this.tBW / 2 - 40,
-              curvePoint[i - 1].y,
-              -10,
-            ),
-            new THREE.Vector3(
-              -this.tBW / 2 - 40,
-              curvePoint[i - 1].y,
-              0,
-            ),
+            new THREE.Vector3(curvePoint[i].x, curvePoint[i].y, 0),
+            new THREE.Vector3(curvePoint[i].x, curvePoint[i].y, -10),
+            new THREE.Vector3(curvePoint[i - 1].x, curvePoint[i - 1].y, -10),
+            new THREE.Vector3(curvePoint[i - 1].x, curvePoint[i - 1].y, 0),
+            new THREE.Vector3(-this.tBW / 2 - 40, curvePoint[i].y, 0),
+            new THREE.Vector3(-this.tBW / 2 - 40, curvePoint[i].y, -10),
+            new THREE.Vector3(-this.tBW / 2 - 40, curvePoint[i - 1].y, -10),
+            new THREE.Vector3(-this.tBW / 2 - 40, curvePoint[i - 1].y, 0),
           ]
           const geo = new THREE.ConvexGeometry(curveVertices)
           const mesh = new THREE.Mesh(geo, this.material)
           curveFace.add(mesh)
         } else if (i >= 20) {
           const curveVertices = [
-            new THREE.Vector3(
-              curvePoint[i].x,
-              curvePoint[i].y,
-              0,
-            ),
-            new THREE.Vector3(
-              curvePoint[i].x,
-              curvePoint[i].y,
-              -10,
-            ),
-            new THREE.Vector3(
-              curvePoint[i - 1].x,
-              curvePoint[i - 1].y,
-              -10,
-            ),
-            new THREE.Vector3(
-              curvePoint[i - 1].x,
-              curvePoint[i - 1].y,
-              0,
-            ),
-            new THREE.Vector3(
-              this.tBW / 2 + 40,
-              curvePoint[i].y,
-              0,
-            ),
-            new THREE.Vector3(
-              this.tBW / 2 + 40,
-              curvePoint[i].y,
-              -10,
-            ),
-            new THREE.Vector3(
-              this.tBW / 2 + 40,
-              curvePoint[i - 1].y,
-              -10,
-            ),
-            new THREE.Vector3(
-              this.tBW / 2 + 40,
-              curvePoint[i - 1].y,
-              0,
-            ),
+            new THREE.Vector3(curvePoint[i].x, curvePoint[i].y, 0),
+            new THREE.Vector3(curvePoint[i].x, curvePoint[i].y, -10),
+            new THREE.Vector3(curvePoint[i - 1].x, curvePoint[i - 1].y, -10),
+            new THREE.Vector3(curvePoint[i - 1].x, curvePoint[i - 1].y, 0),
+            new THREE.Vector3(this.tBW / 2 + 40, curvePoint[i].y, 0),
+            new THREE.Vector3(this.tBW / 2 + 40, curvePoint[i].y, -10),
+            new THREE.Vector3(this.tBW / 2 + 40, curvePoint[i - 1].y, -10),
+            new THREE.Vector3(this.tBW / 2 + 40, curvePoint[i - 1].y, 0),
           ]
           const geo = new THREE.ConvexGeometry(curveVertices)
           const mesh = new THREE.Mesh(geo, this.material)
@@ -428,8 +387,8 @@ export default class MainBuilding extends THREE.Object3D {
     face4.position.z = -this.tBW - 40 - 50
 
     const stick1 = new THREE.Mesh(
-      new THREE.BoxGeometry(10, 70, 10),
-      this.material
+        new THREE.BoxGeometry(10, 70, 10),
+        this.material
     )
 
     const stick2 = stick1.clone()
@@ -453,8 +412,8 @@ export default class MainBuilding extends THREE.Object3D {
     stick4.position.z = -this.tBW - 40 - 55
 
     const top = new THREE.Mesh(
-      new THREE.BoxGeometry(-this.tBW - 40 - 40, 10, -this.tBW - 40 - 40),
-      this.material
+        new THREE.BoxGeometry(-this.tBW - 40 - 40, 10, -this.tBW - 40 - 40),
+        this.material
     )
     top.position.y = 65
     top.position.z = -this.tBW / 2 - 40 - 10
@@ -467,6 +426,22 @@ export default class MainBuilding extends THREE.Object3D {
     const roof3 = roof1.clone()
     const roof4 = roof1.clone()
 
+    roof2.rotation.y = Math.PI / 2
+    roof2.position.x = this.tBW / 2 + 40 + 10
+    roof2.position.z = -this.tBW / 2 - 40 - 10
+
+    roof3.rotation.y = -Math.PI / 2
+    roof3.position.x = -this.tBW / 2 - 40 - 10
+    roof3.position.z = -this.tBW / 2 - 40 - 10
+
+    roof4.rotation.y = Math.PI
+    roof4.position.z = -this.tBW - 40 - 60
+
+    roofs.add(roof1)
+    roofs.add(roof2)
+    roofs.add(roof3)
+    roofs.add(roof4)
+
     under2.add(face1)
     under2.add(face2)
     under2.add(face3)
@@ -476,19 +451,32 @@ export default class MainBuilding extends THREE.Object3D {
     under2.add(stick2)
     under2.add(stick3)
     under2.add(stick4)
+    under2.add(roofs)
 
     return under2
   }
 
-  createRoof(w, h) {
-    const vertices = [
-      new THREE.Vector3(w / 2 + 10, h, 0),
-      new THREE.Vector3(w / 2 + 10, h + 5, 0),
-      new THREE.Vector3(-w / 2 - 10, h + 5, 0),
-      new THREE.Vector3(-w / 2 - 10, h, 0),
-      new THREE.Vector3(w / 2 + 25, h, 15),
-      new THREE.Vector3(-w / 2 - 25, h, 15),
-    ]
+  createRoof(w, h, state = 'under') {
+    let vertices
+    if (state === 'top') {
+      vertices = [
+        new THREE.Vector3(w / 2, h, 0),
+        new THREE.Vector3(w / 2, h + 5, 0),
+        new THREE.Vector3(-w / 2, h + 5, 0),
+        new THREE.Vector3(-w / 2, h, 0),
+        new THREE.Vector3(w / 2 + 15, h, 15),
+        new THREE.Vector3(-w / 2 - 15, h, 15),
+      ]
+    } else {
+      vertices = [
+        new THREE.Vector3(w / 2 + 10, h, 0),
+        new THREE.Vector3(w / 2 + 10, h + 5, 0),
+        new THREE.Vector3(-w / 2 - 10, h + 5, 0),
+        new THREE.Vector3(-w / 2 - 10, h, 0),
+        new THREE.Vector3(w / 2 + 25, h, 15),
+        new THREE.Vector3(-w / 2 - 25, h, 15),
+      ]
+    }
 
     const geo = new THREE.ConvexGeometry(vertices)
     const roof = new THREE.Mesh(geo, this.roofMaterial)
