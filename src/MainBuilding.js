@@ -150,12 +150,76 @@ export default class MainBuilding extends THREE.Object3D {
     roofs.add(roof3)
     roofs.add(roof4)
 
+    const pillars = new THREE.Object3D()
+
+    const pillars1 = new THREE.Object3D()
+    let x = -this.tBW / 2 - 10 + 22.86
+    for (let i = 0; i < 6; i++) {
+      const pillar = new THREE.Mesh(
+        new THREE.CylinderGeometry(5, 5, 50, 36),
+        this.material
+      )
+      pillar.position.x = x
+      pillar.position.y = 25
+      pillar.position.z = 10
+      x += 22.86
+      pillars1.add(pillar)
+    }
+
+    const pillars2 = pillars1.clone()
+    pillars2.rotation.y = Math.PI / 2
+    pillars2.position.x = x - 10
+    pillars2.position.z = -this.tBW / 2
+
+    const pillars3 = pillars2.clone()
+    pillars3.position.x = -x - 10
+
+    const pillars4 = pillars1.clone()
+    pillars4.position.z = -this.tBW - 20
+
+    const p1 = new THREE.Mesh(
+      new THREE.CylinderGeometry(5, 5, 50, 36),
+      this.material
+    )
+    const p2 = p1.clone()
+    const p3 = p1.clone()
+    const p4 = p1.clone()
+
+    p1.position.x = x
+    p1.position.y = 25
+    p1.position.z = 10
+
+    p2.position.x = -x
+    p2.position.y = 25
+    p2.position.z = 10
+
+    p3.position.x = -x
+    p3.position.y = 25
+    p3.position.z = -this.tBW - 10
+
+    p4.position.x = x
+    p4.position.y = 25
+    p4.position.z = -this.tBW - 10
+
+    pillars.add(pillars1)
+    pillars.add(pillars2)
+    pillars.add(pillars3)
+    pillars.add(pillars4)
+    pillars.add(p1)
+    pillars.add(p2)
+    pillars.add(p3)
+    pillars.add(p4)
+
+    const top = this.createTop()
+
     tower.add(face1)
     tower.add(face2)
     tower.add(face3)
     tower.add(face4)
     tower.add(face5)
     tower.add(roofs)
+    tower.add(pillars)
+    tower.add(top)
 
     return tower
   }
@@ -460,6 +524,59 @@ export default class MainBuilding extends THREE.Object3D {
     roofs.add(roof3)
     roofs.add(roof4)
 
+    const pillars = new THREE.Object3D()
+
+    const pillars1 = new THREE.Object3D()
+    let x = -this.tBW / 2 - 40 - 20 + 32.5
+    for (let i = 0; i < 7; i++) {
+      const pillar = new THREE.Mesh(
+        new THREE.CylinderGeometry(5, 5, 70, 36),
+        this.material
+      )
+      pillar.position.x = x
+      pillar.position.y = 35
+      pillar.position.z = 10
+      x += 32.5
+      pillars1.add(pillar)
+    }
+
+    const pillars2 = pillars1.clone()
+    pillars2.rotation.y = Math.PI / 2
+    pillars2.position.x = x - 10
+    pillars2.position.z = -this.tBW / 2 - 40 - 10
+
+    const pillars3 = pillars2.clone()
+    pillars3.position.x = -x - 10
+
+    const pillars4 = pillars1.clone()
+    pillars4.position.z = -this.tBW - 80 - 40
+
+    const p1 = new THREE.Mesh(
+      new THREE.CylinderGeometry(5, 5, 70, 36),
+      this.material
+    )
+    p1.position.x = x
+    p1.position.y = 35
+    p1.position.z = 10
+
+    const p2 = p1.clone()
+    p2.position.x = -x
+
+    const p3 = p2.clone()
+    p3.position.z = -this.tBW - 80 - 30
+
+    const p4 = p3.clone()
+    p4.position.x = x
+
+    pillars.add(pillars1)
+    pillars.add(pillars2)
+    pillars.add(pillars3)
+    pillars.add(pillars4)
+    pillars.add(p1)
+    pillars.add(p2)
+    pillars.add(p3)
+    pillars.add(p4)
+
     under2.add(face1)
     under2.add(face2)
     under2.add(face3)
@@ -470,6 +587,7 @@ export default class MainBuilding extends THREE.Object3D {
     under2.add(stick3)
     under2.add(stick4)
     under2.add(roofs)
+    under2.add(pillars)
 
     return under2
   }
@@ -482,8 +600,8 @@ export default class MainBuilding extends THREE.Object3D {
         new THREE.Vector3(w / 2, h + 5, -8),
         new THREE.Vector3(-w / 2, h + 5, -8),
         new THREE.Vector3(-w / 2, h, -8),
-        new THREE.Vector3(w / 2 + 15, h, -8 + 15),
-        new THREE.Vector3(-w / 2 - 15, h, -8 + 15),
+        new THREE.Vector3(w / 2 + 30, h, -8 + 30),
+        new THREE.Vector3(-w / 2 - 30, h, -8 + 30),
       ]
     } else {
       vertices = [
@@ -491,8 +609,8 @@ export default class MainBuilding extends THREE.Object3D {
         new THREE.Vector3(w / 2 + 10, h + 5, 0),
         new THREE.Vector3(-w / 2 - 10, h + 5, 0),
         new THREE.Vector3(-w / 2 - 10, h, 0),
-        new THREE.Vector3(w / 2 + 25, h, 15),
-        new THREE.Vector3(-w / 2 - 25, h, 15),
+        new THREE.Vector3(w / 2 + 30, h, 20),
+        new THREE.Vector3(-w / 2 - 30, h, 20),
       ]
     }
 
@@ -500,6 +618,123 @@ export default class MainBuilding extends THREE.Object3D {
     const roof = new THREE.Mesh(geo, this.roofMaterial)
 
     return roof
+  }
+
+  createTop() {
+    const top = new THREE.Object3D()
+
+    const pillars = new THREE.Object3D()
+
+    const pillars1 = new THREE.Object3D()
+    let x = -this.tTW / 2 + 4 + 13
+    for (let i = 0; i < 3; i++) {
+      const pillar = new THREE.Mesh(
+        new THREE.CylinderGeometry(4, 4, 40, 36),
+        this.material
+      )
+      pillar.position.x = x
+      pillar.position.y = 270
+      pillar.position.z = -44
+      x += 13
+      pillars1.add(pillar)
+    }
+
+    const pillars2 = pillars1.clone()
+    pillars2.rotation.y = Math.PI / 2
+    pillars2.position.x = this.tTW + 10
+    pillars2.position.z = -this.tTW - 10
+
+    const pillars3 = pillars2.clone()
+    pillars3.position.x = 17.3
+
+    const pillars4 = pillars1.clone()
+    pillars4.position.z = -this.tTW + 7.3
+
+    const p1 = new THREE.Mesh(
+      new THREE.CylinderGeometry(4, 4, 40, 36),
+      this.material
+    )
+    p1.position.x = x
+    p1.position.y = 270
+    p1.position.z = -44
+
+    const p2 = p1.clone()
+    p2.position.x = -this.tTW / 2 + 4
+
+    const p3 = p2.clone()
+    p3.position.z = -this.tTW - 36.7
+
+    const p4 = p3.clone()
+    p4.position.x = x
+
+    pillars.add(pillars1)
+    pillars.add(pillars2)
+    pillars.add(pillars3)
+    pillars.add(pillars4)
+    pillars.add(p1)
+    pillars.add(p2)
+    pillars.add(p3)
+    pillars.add(p4)
+
+    const curve1 = new THREE.QuadraticBezierCurve3(
+      new THREE.Vector3(-this.tTW / 2, 0, 0),
+      new THREE.Vector3(0, 60, -this.tTW / 2),
+      new THREE.Vector3(this.tTW / 2, 0, -this.tTW)
+    )
+    const curvePoint1 = curve1.getPoints(40)
+
+    const curve2 = new THREE.QuadraticBezierCurve3(
+      new THREE.Vector3(this.tTW / 2, 0, 0),
+      new THREE.Vector3(0, 60, -this.tTW / 2),
+      new THREE.Vector3(-this.tTW / 2, 0, -this.tTW)
+    )
+    const curvePoint2 = curve2.getPoints(40)
+    console.log(curvePoint1)
+    const head = new THREE.Object3D()
+    for (let i = 0; i < curvePoint1.length; i++) {
+      if (i !== 0) {
+        const vs = [
+          new THREE.Vector3(curvePoint1[i].x, curvePoint1[i].y, curvePoint1[i].z),
+          new THREE.Vector3(curvePoint2[i].x, curvePoint2[i].y, curvePoint2[i].z),
+          new THREE.Vector3(curvePoint1[i - 1].x, curvePoint1[i - 1].y, curvePoint1[i - 1].z),
+          new THREE.Vector3(curvePoint2[i - 1].x, curvePoint2[i - 1].y, curvePoint2[i - 1].z),
+        ]
+        const geo = new THREE.ConvexGeometry(vs)
+        const mesh1 = new THREE.Mesh(geo, this.roofMaterial)
+        const mesh2 = mesh1.clone()
+        mesh2.rotation.y = Math.PI / 2
+        mesh2.position.x = this.tTW / 2
+        mesh2.position.z = -this.tTW / 2
+        head.add(mesh1)
+        head.add(mesh2)
+      }
+    }
+
+    head.position.y = 290
+    head.position.z = -40
+
+    // const geo1 = new THREE.Geometry()
+    // geo1.vertices = curvePoint1
+    // const line1 = new THREE.Line(
+    //   geo1, new THREE.LineBasicMaterial({ color: 0xff0000 })
+    // )
+    // line1.position.y = 290
+    // line1.position.z = -40
+
+    // const geo2 = new THREE.Geometry()
+    // geo2.vertices = curvePoint2
+    // const line2 = new THREE.Line(
+    //   geo2, new THREE.LineBasicMaterial({ color: 0xff0000 })
+    // )
+    // line2.position.y = 290
+    // line2.position.z = -40
+
+    top.add(pillars)
+    top.add(head)
+    // top.add(line1)
+    // top.add(line2)
+
+    return top
   }
 
   createBuilding() {
@@ -516,9 +751,14 @@ export default class MainBuilding extends THREE.Object3D {
     const under2 = this.createUnder2()
     under2.position.z = 0
 
+    // const top = this.createTop()
+    // top.position.y = 380
+    // top.position.z = -50 - 40
+
     building.add(tower)
     building.add(under1)
     building.add(under2)
+    // building.add(top)
 
     return building
   }
