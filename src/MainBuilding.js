@@ -1,6 +1,6 @@
-import 'imports-loader?THREE=three!three/examples/js/QuickHull.js';
-import 'imports-loader?THREE=three!three/examples/js/geometries/ConvexGeometry.js';
-import * as THREE from 'three';
+import 'imports-loader?THREE=three!three/examples/js/QuickHull.js'
+import 'imports-loader?THREE=three!three/examples/js/geometries/ConvexGeometry.js'
+import * as THREE from 'three'
 
 export default class MainBuilding extends THREE.Object3D {
   constructor() {
@@ -50,9 +50,9 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.Vector3(-10, windowY, -10 - windowX1),
       new THREE.Vector3(-10 + 2, windowY + 10, -10 - windowX2),
       new THREE.Vector3(
-          -this.tBW / 2 + windowX2 + 10,
-          windowY + 10,
-          -10 - windowX2
+        -this.tBW / 2 + windowX2 + 10,
+        windowY + 10,
+        -10 - windowX2
       ),
     ]
     const geo2 = new THREE.ConvexGeometry(towertVertices2)
@@ -68,9 +68,9 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.Vector3(10, windowY, -10 - windowX1),
       new THREE.Vector3(10 - 2, windowY + 10, -10 - windowX2),
       new THREE.Vector3(
-          this.tBW / 2 - windowX2 - 10,
-          windowY + 10,
-          -10 - windowX2
+        this.tBW / 2 - windowX2 - 10,
+        windowY + 10,
+        -10 - windowX2
       ),
     ]
     const geo3 = new THREE.ConvexGeometry(towertVertices3)
@@ -83,14 +83,14 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.Vector3(-this.tTW / 2, this.towerHeight, -40),
       // ----------------------------------------------
       new THREE.Vector3(
-          -this.tBW / 2 + windowX2 + 10,
-          windowY + 10,
-          -10 - windowX2
+        -this.tBW / 2 + windowX2 + 10,
+        windowY + 10,
+        -10 - windowX2
       ),
       new THREE.Vector3(
-          this.tBW / 2 - windowX2 - 10,
-          windowY + 10,
-          -10 - windowX2
+        this.tBW / 2 - windowX2 - 10,
+        windowY + 10,
+        -10 - windowX2
       ),
       new THREE.Vector3(this.tTW / 2 - 10, this.towerHeight, -50),
       new THREE.Vector3(-this.tTW / 2 + 10, this.towerHeight, -50),
@@ -204,8 +204,8 @@ export default class MainBuilding extends THREE.Object3D {
     face4.position.z = -this.tBW - 20 - 30
 
     const stick1 = new THREE.Mesh(
-        new THREE.BoxGeometry(10, 60, 10),
-        this.material
+      new THREE.BoxGeometry(10, 60, 10),
+      this.material
     )
 
     const stick2 = stick1.clone()
@@ -229,15 +229,15 @@ export default class MainBuilding extends THREE.Object3D {
     stick4.position.z = -this.tBW - 20 - 35
 
     const top = new THREE.Mesh(
-        new THREE.BoxGeometry(this.tBW + 40, 10, this.tBW + 40),
-        this.material
+      new THREE.BoxGeometry(this.tBW + 40, 10, this.tBW + 40),
+      this.material
     )
     top.position.y = 55
     top.position.z = -this.tBW / 2 - 20 - 10
 
     const bottom = new THREE.Mesh(
-        new THREE.BoxGeometry(this.tBW + 40 + 20, 10, this.tBW + 40 + 20),
-        this.material
+      new THREE.BoxGeometry(this.tBW + 40 + 20, 10, this.tBW + 40 + 20),
+      this.material
     )
     bottom.position.y = -5
     bottom.position.z = -this.tBW / 2 - 20 - 10
@@ -302,9 +302,9 @@ export default class MainBuilding extends THREE.Object3D {
     const mesh1 = new THREE.Mesh(geo1, this.material)
 
     const curve = new THREE.QuadraticBezierCurve3(
-        new THREE.Vector3(-15, 0, 0),
-        new THREE.Vector3(0, 20, 0),
-        new THREE.Vector3(15, 0, 0)
+      new THREE.Vector3(-15, 0, 0),
+      new THREE.Vector3(0, 20, 0),
+      new THREE.Vector3(15, 0, 0)
     )
     const curvePoint = curve.getPoints(40)
     for (let i = 0; i < curvePoint.length; i++) {
@@ -387,8 +387,8 @@ export default class MainBuilding extends THREE.Object3D {
     face4.position.z = -this.tBW - 40 - 50
 
     const stick1 = new THREE.Mesh(
-        new THREE.BoxGeometry(10, 70, 10),
-        this.material
+      new THREE.BoxGeometry(10, 70, 10),
+      this.material
     )
 
     const stick2 = stick1.clone()
@@ -412,8 +412,8 @@ export default class MainBuilding extends THREE.Object3D {
     stick4.position.z = -this.tBW - 40 - 55
 
     const top = new THREE.Mesh(
-        new THREE.BoxGeometry(-this.tBW - 40 - 40, 10, -this.tBW - 40 - 40),
-        this.material
+      new THREE.BoxGeometry(-this.tBW - 40 - 40, 10, -this.tBW - 40 - 40),
+      this.material
     )
     top.position.y = 65
     top.position.z = -this.tBW / 2 - 40 - 10
