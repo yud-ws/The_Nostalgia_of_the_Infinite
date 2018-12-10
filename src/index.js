@@ -62,55 +62,38 @@ function init() {
   const startTime = new Date()
 
   function animation() {
-    const time = (new Date - startTime) / 1000
-    for (let i = 0; i < tri.children.length; i++) {
-      const vs = tri.children[i].geometry.vertices
-      console.log('vs', vs)
-      for (let k = 0; k < vs.length; k++) {
-        const v = vs[k]
-        v.z = 1 * Math.sin(-i / 2 + time * 15)
-      }
-    }
+    // const time = (new Date - startTime) / 1000
+    // for (let i = 0; i < tri.children.length; i++) {
+    //   const vs = tri.children[i].geometry.vertices
+    //   console.log('vs', vs)
+    //   for (let k = 0; k < vs.length; k++) {
+    //     const v = vs[k]
+    //     v.z = 1 * Math.sin(-i / 2 + time * 15)
+    //   }
+    // }
     renderer.render(scene, camera)
     requestAnimationFrame(animation)
   }
 }
 
 function createFlag() {
-  const flags = new THREE.Object3D()
-  flags.name = 'flags'
-
-  const flag1 = new THREE.Object3D()
-  flag1.name = 'flag1'
-
-  const tri = new THREE.Object3D()
-  tri.name = 'tri'
+  const geo = new THREE.Geometry()
 
   const x = []
   const y = []
+
   for (let i = 0; i < 36; i++) {
     x.push(i)
-    y.push(1 / 7 * i)
+  }
+  for (let i = 0; i < 11; i++) {
+    y.push(i)
   }
 
   for (let i = 0; i < x.length; i++) {
-    if (i !== 0) {
-      const v = [
-        new THREE.Vector3(x[i], 50 - y[i], 0),
-        new THREE.Vector3(x[i], 40 + y[i], 0),
-        new THREE.Vector3(x[i - 1], 50 - y[i - 1], 0),
-        new THREE.Vector3(x[i - 1], 40 + y[i - 1], 0),
-      ]
-      const geo = new THREE.ConvexGeometry(v)
-      geo.verticesNeedUpdate = true
-      const mesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial({ color: '#ffd700' }))
-      mesh.name = 'mesh' + i
-      mesh.rotation.y = Math.PI
-      tri.add(mesh)
+    for (let k = 0; k < y.length; k++) {
+      geo.vertices.push(
+        new THREE.Vector3(x[i], y[k], 0)
+      )
     }
   }
-
-  // flags.add(tri)
-
-  return tri
 }
