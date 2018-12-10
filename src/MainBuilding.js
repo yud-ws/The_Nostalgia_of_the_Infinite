@@ -710,6 +710,15 @@ export default class MainBuilding extends THREE.Object3D {
       }
     }
 
+    const flags = new THREE.Object3D()
+
+    const flag1 = new THREE.Object3D()
+
+    const stick = new THREE.Mesh(
+      new THREE.CylinderGeometry(1, 1, 40, 36),
+      new THREE.MeshPhongMaterial({ color: '#000' })
+    )
+
     head.position.y = 290
     head.position.z = -40
 
