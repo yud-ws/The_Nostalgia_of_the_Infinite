@@ -13,14 +13,17 @@ export default class MainBuilding extends THREE.Object3D {
     this.material = new THREE.MeshPhongMaterial({ color: '#cd853f' })
     this.roofMaterial = new THREE.MeshPhongMaterial({ color: '#ff0000' })
 
-    const tower = this.createBuilding()
+    const building = this.createBuilding()
 
-    this.add(tower)
+    this.add(building)
   }
 
   createTower() {
     const tower = new THREE.Object3D()
+    tower.name = 'tower'
+
     const face1 = new THREE.Object3D()
+    face1.name = 'tower face1'
 
     const windowY = 110
     const windowX1 = 17.6
@@ -127,6 +130,7 @@ export default class MainBuilding extends THREE.Object3D {
     face4.position.z = -this.tBW
 
     const roofs = new THREE.Object3D()
+    roofs.name = 'tower roof'
 
     const roof1 = this.createRoof(124, 50, 'top')
 
@@ -151,8 +155,10 @@ export default class MainBuilding extends THREE.Object3D {
     roofs.add(roof4)
 
     const pillars = new THREE.Object3D()
+    pillars.name = 'tower pillars'
 
     const pillars1 = new THREE.Object3D()
+    pillars1.name = 'tower pillars1'
     let x = -this.tBW / 2 - 10 + 22.86
     for (let i = 0; i < 6; i++) {
       const pillar = new THREE.Mesh(
@@ -365,6 +371,7 @@ export default class MainBuilding extends THREE.Object3D {
 
   createUnder2() {
     const under2 = new THREE.Object3D()
+    under2.name = 'under2'
 
     const face1 = new THREE.Object3D()
 
@@ -622,10 +629,13 @@ export default class MainBuilding extends THREE.Object3D {
 
   createTop() {
     const top = new THREE.Object3D()
+    top.name = 'top'
 
     const pillars = new THREE.Object3D()
+    pillars.name = 'top pillars'
 
     const pillars1 = new THREE.Object3D()
+    pillars1.name = 'top pillars1'
     let x = -this.tTW / 2 + 4 + 13
     for (let i = 0; i < 3; i++) {
       const pillar = new THREE.Mesh(
@@ -689,8 +699,11 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.Vector3(-this.tTW / 2, 0, -this.tTW)
     )
     const curvePoint2 = curve2.getPoints(40)
-    console.log(curvePoint1)
+    // console.log(curvePoint1)
+
     const head = new THREE.Object3D()
+    head.name = 'top head'
+
     for (let i = 0; i < curvePoint1.length; i++) {
       if (i !== 0) {
         const vs = [
@@ -710,14 +723,9 @@ export default class MainBuilding extends THREE.Object3D {
       }
     }
 
-    const flags = new THREE.Object3D()
+    const flags = this.createFlag()
 
-    const flag1 = new THREE.Object3D()
-
-    const stick = new THREE.Mesh(
-      new THREE.CylinderGeometry(1, 1, 40, 36),
-      new THREE.MeshPhongMaterial({ color: '#000' })
-    )
+    head.add(flags)
 
     head.position.y = 290
     head.position.z = -40
@@ -746,8 +754,94 @@ export default class MainBuilding extends THREE.Object3D {
     return top
   }
 
+  createFlag() {
+    const flags = new THREE.Object3D()
+    flags.name = 'flags'
+
+    const flag1 = new THREE.Object3D()
+    flag1.name = 'flag1'
+
+    const stick = new THREE.Mesh(
+      new THREE.CylinderGeometry(1, 1, 50, 36),
+      new THREE.MeshPhongMaterial({ color: '#000' })
+    )
+    stick.position.y = 25
+
+    flag1.add(stick)
+
+    const tri = new THREE.Object3D()
+    tri.name = 'tri'
+
+    const x = []
+    const y = []
+    for (let i = 0; i < 36; i++) {
+      x.push(i)
+      y.push(1 / 7 * i)
+    }
+
+    for (let i = 0; i < x.length; i++) {
+      if (i !== 0) {
+        const v = [
+          new THREE.Vector3(x[i], 50 - y[i], 0),
+          new THREE.Vector3(x[i], 40 + y[i], 0),
+          new THREE.Vector3(x[i - 1], 50 - y[i - 1], 0),
+          new THREE.Vector3(x[i - 1], 40 + y[i - 1], 0),
+        ]
+        const geo = new THREE.ConvexGeometry(v)
+        geo.verticesNeedUpdate = true
+        const mesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial({ color: '#ffd700' }))
+        mesh.name = 'mesh' + i
+        mesh.rotation.y = Math.PI
+        tri.add(mesh)
+      }
+    }
+    console.log(tri.children[0])
+    flag1.add(tri)
+
+    // const triV = [
+    //   new THREE.Vector3(0, 50, 0),
+    //   new THREE.Vector3(0, 40, 0),
+    //   new THREE.Vector3(35, 45, 0),
+    //   new THREE.Vector3(35, 45, 0),
+    // ]
+
+    // const triG = new THREE.ConvexGeometry(triV, 10)
+    // console.log(triG)
+    // const tri = new THREE.Mesh(triG, new THREE.MeshPhongMaterial({ color: '#ffd700' }))
+    // tri.rotation.y = Math.PI
+
+    // flag1.add(stick)
+    // flag1.add(tri)
+
+    flag1.position.x = 27
+    flag1.position.z = -3
+
+    // console.log(flag1)
+
+    const flag2 = flag1.clone()
+    flag2.position.x = -27
+    flag2.children[1].material = new THREE.MeshPhongMaterial({ color: '#fffaf0' })
+    // console.log(flag2.children[1])
+
+    const flag3 = flag2.clone()
+    flag3.position.z = -57
+    flag3.children[1].material = new THREE.MeshPhongMaterial({ color: '#ffa500' })
+
+    const flag4 = flag3.clone()
+    flag4.position.x = 27
+    flag4.children[1].material = new THREE.MeshPhongMaterial({ color: '#ffdab9' })
+
+    flags.add(flag1)
+    flags.add(flag2)
+    flags.add(flag3)
+    flags.add(flag4)
+
+    return flags
+  }
+
   createBuilding() {
     const building = new THREE.Object3D()
+    building.name = 'building'
 
     const tower = this.createTower()
     tower.position.y = 140
