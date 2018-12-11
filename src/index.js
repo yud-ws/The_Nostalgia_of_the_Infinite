@@ -45,13 +45,14 @@ function init() {
   plane.rotation.x = -Math.PI / 2
   scene.add(plane)
 
-  // const building = new MainBuilding()
+  const building = new MainBuilding()
+  scene.add(building)
   // building.position.z = 50
 
-  const tri = createFlag()
+  // const tri = createFlag()
 
-  scene.add(tri)
-  console.log(tri)
+  // scene.add(tri)
+  // console.log(tri)
 
   // console.log('test', building.children[0].children[0].children[7].children[1].children[80].children[0].children[1].children)
 
