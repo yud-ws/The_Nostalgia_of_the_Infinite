@@ -3,6 +3,7 @@ import 'imports-loader?THREE=three!three/examples/js/QuickHull.js'
 import 'imports-loader?THREE=three!three/examples/js/geometries/ConvexGeometry.js'
 import * as THREE from 'three'
 import MainBuilding from './MainBuilding'
+import SubBuilding from './SubBuilding'
 
 window.addEventListener('DOMContentLoaded', init)
 
@@ -45,8 +46,12 @@ function init() {
   plane.rotation.x = -Math.PI / 2
   scene.add(plane)
 
-  const building = new MainBuilding()
-  scene.add(building)
+  const building1 = new MainBuilding()
+  scene.add(building1)
+
+  const building2 = new SubBuilding()
+  building2.position.z = 300
+  scene.add(building2)
   // building.position.z = 50
 
   // const tri = createFlag()

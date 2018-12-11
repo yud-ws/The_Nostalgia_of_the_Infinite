@@ -769,49 +769,49 @@ export default class MainBuilding extends THREE.Object3D {
 
     flag1.add(stick)
 
-    const tri = new THREE.Object3D()
-    tri.name = 'tri'
+    // const tri = new THREE.Object3D()
+    // tri.name = 'tri'
 
-    const x = []
-    const y = []
-    for (let i = 0; i < 36; i++) {
-      x.push(i)
-      y.push(1 / 7 * i)
-    }
+    // const x = []
+    // const y = []
+    // for (let i = 0; i < 36; i++) {
+    //   x.push(i)
+    //   y.push(1 / 7 * i)
+    // }
 
-    for (let i = 0; i < x.length; i++) {
-      if (i !== 0) {
-        const v = [
-          new THREE.Vector3(x[i], 50 - y[i], 0),
-          new THREE.Vector3(x[i], 40 + y[i], 0),
-          new THREE.Vector3(x[i - 1], 50 - y[i - 1], 0),
-          new THREE.Vector3(x[i - 1], 40 + y[i - 1], 0),
-        ]
-        const geo = new THREE.ConvexGeometry(v)
-        geo.verticesNeedUpdate = true
-        const mesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial({ color: '#ffd700' }))
-        mesh.name = 'mesh' + i
-        mesh.rotation.y = Math.PI
-        tri.add(mesh)
-      }
-    }
-    console.log(tri.children[0])
-    flag1.add(tri)
-
-    // const triV = [
-    //   new THREE.Vector3(0, 50, 0),
-    //   new THREE.Vector3(0, 40, 0),
-    //   new THREE.Vector3(35, 45, 0),
-    //   new THREE.Vector3(35, 45, 0),
-    // ]
-
-    // const triG = new THREE.ConvexGeometry(triV, 10)
-    // console.log(triG)
-    // const tri = new THREE.Mesh(triG, new THREE.MeshPhongMaterial({ color: '#ffd700' }))
-    // tri.rotation.y = Math.PI
-
-    // flag1.add(stick)
+    // for (let i = 0; i < x.length; i++) {
+    //   if (i !== 0) {
+    //     const v = [
+    //       new THREE.Vector3(x[i], 50 - y[i], 0),
+    //       new THREE.Vector3(x[i], 40 + y[i], 0),
+    //       new THREE.Vector3(x[i - 1], 50 - y[i - 1], 0),
+    //       new THREE.Vector3(x[i - 1], 40 + y[i - 1], 0),
+    //     ]
+    //     const geo = new THREE.ConvexGeometry(v)
+    //     geo.verticesNeedUpdate = true
+    //     const mesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial({ color: '#ffd700' }))
+    //     mesh.name = 'mesh' + i
+    //     mesh.rotation.y = Math.PI
+    //     tri.add(mesh)
+    //   }
+    // }
+    // console.log(tri.children[0])
     // flag1.add(tri)
+
+    const triV = [
+      new THREE.Vector3(0, 50, 0),
+      new THREE.Vector3(0, 40, 0),
+      new THREE.Vector3(35, 45, 0),
+      new THREE.Vector3(35, 45, 0),
+    ]
+
+    const triG = new THREE.ConvexGeometry(triV, 10)
+    console.log(triG)
+    const tri = new THREE.Mesh(triG, new THREE.MeshPhongMaterial({ color: '#ffd700' }))
+    tri.rotation.y = Math.PI
+
+    flag1.add(stick)
+    flag1.add(tri)
 
     flag1.position.x = 27
     flag1.position.z = -3
