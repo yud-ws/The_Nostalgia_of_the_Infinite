@@ -28,7 +28,7 @@ export default class SubBuilding extends THREE.Object3D {
     const pillar4 = pillar1.clone()
     pillar4.position.x = 120
 
-    // pillar4までをクローンして四方を囲む
+    // pillar4までをクローンして四方を囲む"
 
     pillars.add(pillar1)
     pillars.add(pillar2)
