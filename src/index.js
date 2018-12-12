@@ -50,7 +50,7 @@ function init() {
   scene.add(building1)
 
   const building2 = new SubBuilding()
-  building2.position.z = 300
+  building2.position.z = 600
   scene.add(building2)
   // building.position.z = 50
 

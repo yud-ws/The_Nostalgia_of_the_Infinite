@@ -15,7 +15,7 @@ export default class SubBuilding extends THREE.Object3D {
     const building = new THREE.Object3D()
     building.name = 'sub building'
 
-    const pillars = new THREE.Object3D()
+    const pillars1 = new THREE.Object3D()
 
     const pillar1 = this.createPillar()
 
@@ -30,12 +30,35 @@ export default class SubBuilding extends THREE.Object3D {
 
     // pillar4までをクローンして四方を囲む"
 
-    pillars.add(pillar1)
-    pillars.add(pillar2)
-    pillars.add(pillar3)
-    pillars.add(pillar4)
+    pillars1.add(pillar1)
+    pillars1.add(pillar2)
+    pillars1.add(pillar3)
+    pillars1.add(pillar4)
 
-    building.add(pillars)
+    const pillars2 = pillars1.clone()
+    pillars2.rotation.y = Math.PI / 2
+    pillars2.position.x = -20
+    pillars2.position.z = -30
+
+    const pillars3 = pillars1.clone()
+    pillars3.position.z = -170
+
+    const pillars4 = pillars2.clone()
+    pillars4.position.x = 150
+
+    const top = new THREE.Mesh(
+      new THREE.BoxGeometry(180, 20, 180),
+      this.material
+    )
+    top.position.x = 60
+    top.position.y = 120
+    top.position.z = -90
+
+    building.add(pillars1)
+    building.add(pillars2)
+    building.add(pillars3)
+    building.add(pillars4)
+    building.add(top)
 
     return building
   }
