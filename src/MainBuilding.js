@@ -16,6 +16,9 @@ export default class MainBuilding extends THREE.Object3D {
     const building = this.createBuilding()
 
     this.add(building)
+
+    this.castShadow = true
+    this.receiveShadow = true
   }
 
   createTower() {
@@ -42,6 +45,8 @@ export default class MainBuilding extends THREE.Object3D {
     ]
     const geo1 = new THREE.ConvexGeometry(towertVertices1)
     const mesh1 = new THREE.Mesh(geo1, this.material)
+    mesh1.castShadow = true
+    mesh1.receiveShadow = true
 
     const towertVertices2 = [
       new THREE.Vector3(-this.tBW / 2 + windowX1, windowY, -windowX1),
@@ -60,6 +65,8 @@ export default class MainBuilding extends THREE.Object3D {
     ]
     const geo2 = new THREE.ConvexGeometry(towertVertices2)
     const mesh2 = new THREE.Mesh(geo2, this.material)
+    mesh2.castShadow = true
+    mesh2.receiveShadow = true
 
     const towertVertices3 = [
       new THREE.Vector3(this.tBW / 2 - windowX1, windowY, -windowX1),
@@ -78,6 +85,8 @@ export default class MainBuilding extends THREE.Object3D {
     ]
     const geo3 = new THREE.ConvexGeometry(towertVertices3)
     const mesh3 = new THREE.Mesh(geo3, this.material)
+    mesh3.castShadow = true
+    mesh3.receiveShadow = true
 
     const towertVertices4 = [
       new THREE.Vector3(-this.tBW / 2 + windowX2, windowY + 10, -windowX2),
@@ -100,6 +109,8 @@ export default class MainBuilding extends THREE.Object3D {
     ]
     const geo4 = new THREE.ConvexGeometry(towertVertices4)
     const mesh4 = new THREE.Mesh(geo4, this.material)
+    mesh4.castShadow = true
+    mesh4.receiveShadow = true
 
     const vertices5 = [
       new THREE.Vector3(-this.tTW / 2, this.towerHeight, -40),
@@ -109,6 +120,8 @@ export default class MainBuilding extends THREE.Object3D {
     ]
     const geo5 = new THREE.ConvexGeometry(vertices5)
     const face5 = new THREE.Mesh(geo5, this.material)
+    face5.castShadow = true
+    face5.receiveShadow = true
 
     face1.add(mesh1)
     face1.add(mesh2)
@@ -165,6 +178,8 @@ export default class MainBuilding extends THREE.Object3D {
         new THREE.CylinderGeometry(5, 5, 50, 36),
         this.material
       )
+      pillar.castShadow = true
+      pillar.receiveShadow = true
       pillar.position.x = x
       pillar.position.y = 25
       pillar.position.z = 10
@@ -187,6 +202,8 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.CylinderGeometry(5, 5, 50, 36),
       this.material
     )
+    p1.castShadow = true
+    p1.receiveShadow = true
     const p2 = p1.clone()
     const p3 = p1.clone()
     const p4 = p1.clone()
@@ -247,6 +264,8 @@ export default class MainBuilding extends THREE.Object3D {
     ]
     const geo1 = new THREE.ConvexGeometry(vertices1)
     const mesh1 = new THREE.Mesh(geo1, this.material)
+    mesh1.castShadow = true
+    mesh1.receiveShadow = true
 
     const vertices2 = [
       new THREE.Vector3(-this.tBW / 2 - 20, 20, 0),
@@ -260,6 +279,8 @@ export default class MainBuilding extends THREE.Object3D {
     ]
     const geo2 = new THREE.ConvexGeometry(vertices2)
     const mesh2 = new THREE.Mesh(geo2, this.material)
+    mesh2.castShadow = true
+    mesh2.receiveShadow = true
 
     const vertices3 = [
       new THREE.Vector3(this.tBW / 2 + 20, 20, 0),
@@ -273,6 +294,8 @@ export default class MainBuilding extends THREE.Object3D {
     ]
     const geo3 = new THREE.ConvexGeometry(vertices3)
     const mesh3 = new THREE.Mesh(geo3, this.material)
+    mesh3.castShadow = true
+    mesh3.receiveShadow = true
 
     face1.add(mesh1)
     face1.add(mesh2)
@@ -295,6 +318,8 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.BoxGeometry(10, 60, 10),
       this.material
     )
+    stick1.castShadow = true
+    stick1.receiveShadow = true
 
     const stick2 = stick1.clone()
     const stick3 = stick1.clone()
@@ -320,6 +345,8 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.BoxGeometry(this.tBW + 40, 10, this.tBW + 40),
       this.material
     )
+    top.castShadow = true
+    top.receiveShadow = true
     top.position.y = 55
     top.position.z = -this.tBW / 2 - 20 - 10
 
@@ -327,6 +354,8 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.BoxGeometry(this.tBW + 40 + 20, 10, this.tBW + 40 + 20),
       this.material
     )
+    bottom.castShadow = true
+    bottom.receiveShadow = true
     bottom.position.y = -5
     bottom.position.z = -this.tBW / 2 - 20 - 10
 
@@ -389,6 +418,8 @@ export default class MainBuilding extends THREE.Object3D {
     ]
     const geo1 = new THREE.ConvexGeometry(vertices1)
     const mesh1 = new THREE.Mesh(geo1, this.material)
+    mesh1.castShadow = true
+    mesh1.receiveShadow = true
 
     const curve = new THREE.QuadraticBezierCurve3(
       new THREE.Vector3(-15, 0, 0),
@@ -411,6 +442,8 @@ export default class MainBuilding extends THREE.Object3D {
           ]
           const geo = new THREE.ConvexGeometry(curveVertices)
           const mesh = new THREE.Mesh(geo, this.material)
+          mesh.castShadow = true
+          mesh.receiveShadow = true
           curveFace.add(mesh)
         } else if (i >= 20) {
           const curveVertices = [
@@ -425,6 +458,8 @@ export default class MainBuilding extends THREE.Object3D {
           ]
           const geo = new THREE.ConvexGeometry(curveVertices)
           const mesh = new THREE.Mesh(geo, this.material)
+          mesh.castShadow = true
+          mesh.receiveShadow = true
           curveFace.add(mesh)
         }
       }
@@ -443,6 +478,8 @@ export default class MainBuilding extends THREE.Object3D {
     ]
     const geo2 = new THREE.ConvexGeometry(vertices2)
     const mesh2 = new THREE.Mesh(geo2, this.material)
+    mesh2.castShadow = true
+    mesh2.receiveShadow = true
 
     const vertices3 = [
       new THREE.Vector3(this.tBW / 2 + 40, 30, 0),
@@ -456,6 +493,8 @@ export default class MainBuilding extends THREE.Object3D {
     ]
     const geo3 = new THREE.ConvexGeometry(vertices3)
     const mesh3 = new THREE.Mesh(geo3, this.material)
+    mesh3.castShadow = true
+    mesh3.receiveShadow = true
 
     face1.add(mesh1)
     face1.add(mesh2)
@@ -479,6 +518,8 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.BoxGeometry(10, 70, 10),
       this.material
     )
+    stick1.castShadow = true
+    stick1.receiveShadow = true
 
     const stick2 = stick1.clone()
     const stick3 = stick1.clone()
@@ -504,6 +545,8 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.BoxGeometry(-this.tBW - 40 - 40, 10, -this.tBW - 40 - 40),
       this.material
     )
+    top.castShadow = true
+    top.receiveShadow = true
     top.position.y = 65
     top.position.z = -this.tBW / 2 - 40 - 10
 
@@ -540,6 +583,8 @@ export default class MainBuilding extends THREE.Object3D {
         new THREE.CylinderGeometry(5, 5, 70, 36),
         this.material
       )
+      pillar.castShadow = true
+      pillar.receiveShadow = true
       pillar.position.x = x
       pillar.position.y = 35
       pillar.position.z = 10
@@ -562,6 +607,8 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.CylinderGeometry(5, 5, 70, 36),
       this.material
     )
+    p1.castShadow = true
+    p1.receiveShadow = true
     p1.position.x = x
     p1.position.y = 35
     p1.position.z = 10
@@ -623,6 +670,8 @@ export default class MainBuilding extends THREE.Object3D {
 
     const geo = new THREE.ConvexGeometry(vertices)
     const roof = new THREE.Mesh(geo, this.roofMaterial)
+    roof.castShadow = true
+    roof.receiveShadow = true
 
     return roof
   }
@@ -642,6 +691,8 @@ export default class MainBuilding extends THREE.Object3D {
         new THREE.CylinderGeometry(4, 4, 40, 36),
         this.material
       )
+      pillar.castShadow = true
+      pillar.receiveShadow = true
       pillar.position.x = x
       pillar.position.y = 270
       pillar.position.z = -44
@@ -664,6 +715,8 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.CylinderGeometry(4, 4, 40, 36),
       this.material
     )
+    p1.castShadow = true
+    p1.receiveShadow = true
     p1.position.x = x
     p1.position.y = 270
     p1.position.z = -44
@@ -714,6 +767,8 @@ export default class MainBuilding extends THREE.Object3D {
         ]
         const geo = new THREE.ConvexGeometry(vs)
         const mesh1 = new THREE.Mesh(geo, this.roofMaterial)
+        mesh1.castShadow = true
+        mesh1.receiveShadow = true
         const mesh2 = mesh1.clone()
         mesh2.rotation.y = Math.PI / 2
         mesh2.position.x = this.tTW / 2
@@ -765,6 +820,8 @@ export default class MainBuilding extends THREE.Object3D {
       new THREE.CylinderGeometry(1, 1, 50, 36),
       new THREE.MeshPhongMaterial({ color: '#000' })
     )
+    stick.castShadow = true
+    stick.receiveShadow = true
     stick.position.y = 25
 
     flag1.add(stick)
@@ -808,6 +865,8 @@ export default class MainBuilding extends THREE.Object3D {
     const triG = new THREE.ConvexGeometry(triV, 10)
     console.log(triG)
     const tri = new THREE.Mesh(triG, new THREE.MeshPhongMaterial({ color: '#ffd700' }))
+    tri.castShadow = true
+    tri.receiveShadow = true
     tri.rotation.y = Math.PI
 
     flag1.add(stick)
@@ -862,6 +921,9 @@ export default class MainBuilding extends THREE.Object3D {
     building.add(under1)
     building.add(under2)
     // building.add(top)
+
+    building.castShadow = true
+    building.receiveShadow = true
 
     return building
   }

@@ -1,138 +1,19 @@
-import 'imports-loader?THREE=three!three/examples/js/controls/OrbitControls.js'
-import 'imports-loader?THREE=three!three/examples/js/QuickHull.js'
-import 'imports-loader?THREE=three!three/examples/js/geometries/ConvexGeometry.js'
+/**
+ * 新しいClothオブジェクトを作成する。
+ * ＠class 風の揺らめきをシミュレーションする布クラス
+ * ＠params {Number} segmentX X軸の分割数
+ * ＠params {Number} segmentY Y軸の分割数
+ * ＠params {Number} distance 分割した頂点間の距離
+ * ＠params {Function} paramFunc パラメトリック曲面の計算式の関数
+ */
 import * as THREE from 'three'
-import MainBuilding from './MainBuilding'
-import SubBuilding from './SubBuilding'
-// import Flag from './Cloth'
-// import { Cloth } from './Cloth'
 
-window.addEventListener('DOMContentLoaded', init)
-
-const windowWidth = 600
-const windowHeight = 800
-
-function init() {
-  const renderer = new THREE.WebGLRenderer({ antialias: true })
-  renderer.setPixelRatio(window.devicePixelRatio)
-  renderer.setSize(windowWidth, windowHeight)
-  renderer.setClearColor(0x40e0d0, 1.0)
-  document.body.appendChild(renderer.domElement)
-
-  const camera = new THREE.PerspectiveCamera(
-    45,
-    windowWidth / windowHeight,
-    0.1,
-    2000000
-  )
-  camera.position.set(0, 0, 1000)
-
-  const controls = new THREE.OrbitControls(camera)
-
-  const scene = new THREE.Scene()
-
-  const light = new THREE.DirectionalLight('#fffff0')
-  light.castShadow = true;
-  light.shadow.mapSize.width = 8192;
-  light.shadow.mapSize.height = 8192;
-  light.intensity = 2;
-  light.position.set(300, 100, 0);
-  light.shadow.camera.left = -20000;
-  light.shadow.camera.right = 20000;
-  light.shadow.camera.top = -20000;
-  light.shadow.camera.bottom = 20000;
-  light.shadow.camera.far = 20000;
-  scene.add(light)
-
-  const amb = new THREE.AmbientLight('#464646', 1.0)
-  scene.add(amb)
-
-  const plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(100000, 100000),
-    new THREE.MeshPhongMaterial({ color: '#d2691e' })
-  )
-  plane.receiveShadow = true
-  plane.rotation.x = -Math.PI / 2
-  scene.add(plane)
-
-  const building1 = new MainBuilding()
-  building1.castShadow = true
-  building1.receiveShadow = true
-  building1.rotation.y = -Math.PI / 6
-  scene.add(building1)
-
-  const building2 = new SubBuilding()
-  building2.castShadow = true
-  building2.receiveShadow = true
-  building2.position.z = 1300
-  scene.add(building2)
-  // building.position.z = 50
-
-  // const tri = createFlag()
-
-  // scene.add(tri)
-  // console.log(tri)
-
-  // console.log('test', building.children[0].children[0].children[7].children[1].children[80].children[0].children[1].children)
-
-  // const triVertices = building.children[0].children[0].children[7].children[1].children[80].children[0].children[1].children
-
-  const DISTANCE = 25; // 旗を分割した頂点間の距離
-  const SEGMENTS_X = 10; // 旗のX軸の分割数
-  const SEGMENTS_Y = 10; // 旗のY軸の分割数
-  const WIDTH = DISTANCE * SEGMENTS_X; // 旗の横幅
-  const HEIGHT = DISTANCE * SEGMENTS_Y; // 旗の縦幅
-
-  // 星条旗
-  var loader = new THREE.TextureLoader();
-  var clothTexture = loader.load("./texture/cloth.png")
-  clothTexture.wrapS = THREE.RepeatWrapping;
-  clothTexture.wrapT = THREE.RepeatWrapping;
-  clothTexture.anisotropy = 16;
-  var clothMaterial = new THREE.MeshPhongMaterial({ specular: 0x000000, color: '#f0f', side: THREE.DoubleSide });
-  function pf(u, v) {
-    var x = (u - 0.5) * DISTANCE * SEGMENTS_X
-    var y = (v + 0.5) * DISTANCE * SEGMENTS_Y
-    var z = 0
-    return new THREE.Vector3(x, y, z)
-  }
-  var cloth = new Cloth(SEGMENTS_X, SEGMENTS_Y, DISTANCE, pf);
-  var clothMeth = new THREE.Mesh(cloth.getGeometry(), clothMaterial);
-  clothMeth.position.set(WIDTH / 2, -HEIGHT / 2, 0);
-  scene.add(clothMeth);
-
-  // ポール
-  var poleGeometry = new THREE.CylinderGeometry(5, 5, 500, 10, 0, true);
-  var poleMaterial = new THREE.MeshPhongMaterial({ color: 0x999999, specular: 0xffffff });
-  var poleMesh = new THREE.Mesh(poleGeometry, poleMaterial);
-  poleMesh.position.x = 0;
-  poleMesh.position.y = 1000;
-  scene.add(poleMesh);
-
-  // -------------------------------------------------------------------------------------------------------------------------
-
-  // const flag = Flag
-  // flag.position.set(0, 1000, 1000)
-  // scene.add(flag)
-
-  animation()
-
-  const startTime = new Date()
-
-  function animation() {
-    cloth.windSimulate(Date.now())
-    renderer.render(scene, camera)
-    requestAnimationFrame(animation)
-  }
-}
-
-class Cloth {
+export class Cloth {
   constructor(segmentX, segmentY, distance, paramFunc) {
     this.segmentX = segmentX;
     this.segmentY = segmentY;
     this.distance = distance;
     this.paramFunc = paramFunc;
-    this.tgt = tgt
     this.geometry = new THREE.ParametricGeometry(this.paramFunc, this.segmentX, this.segmentY);
     this.windForce = new THREE.Vector3(0, 0, 0);
     this.tmpForce = new THREE.Vector3();
@@ -231,8 +112,18 @@ class Cloth {
     p1.position.add(correctionHalf);
     p2.position.sub(correctionHalf);
   };
+
 }
 
+/**
+ * 新しいClothParticleオブジェクトを作成する。
+ * ＠class 風の揺らめきに反応する各頂点のクラス
+ * ＠params {Number} x X座標
+ * ＠params {Number} y Y座標
+ * ＠params {Number} z Z座標
+ * ＠params {Number} mass
+ * ＠params {Function} paramFunc パラメトリック曲面の計算式の関数
+ */
 class ClothParticle {
   constructor(x, y, z, mass, paramFunc) {
     this.position = paramFunc(x, y);
@@ -260,3 +151,38 @@ class ClothParticle {
     this.vector.set(0, 0, 0);
   };
 }
+
+const DISTANCE = 25; // 旗を分割した頂点間の距離
+const SEGMENTS_X = 10; // 旗のX軸の分割数
+const SEGMENTS_Y = 10; // 旗のY軸の分割数
+const WIDTH = DISTANCE * SEGMENTS_X; // 旗の横幅
+const HEIGHT = DISTANCE * SEGMENTS_Y; // 旗の縦幅
+
+// 星条旗
+const group = new THREE.Object3D()
+var loader = new THREE.TextureLoader();
+var clothTexture = loader.load("./texture/cloth.png");
+clothTexture.wrapS = THREE.RepeatWrapping;
+clothTexture.wrapT = THREE.RepeatWrapping;
+clothTexture.anisotropy = 16;
+var clothMaterial = new THREE.MeshPhongMaterial({ specular: 0x000000, color: '#f0f', side: THREE.DoubleSide });
+var cloth = new Cloth(SEGMENTS_X, SEGMENTS_Y, DISTANCE, function (u, v) {
+  var x = (u - 0.5) * DISTANCE * SEGMENTS_X;
+  var y = (v + 0.5) * DISTANCE * SEGMENTS_Y;
+  var z = 0;
+  return new THREE.Vector3(x, y, z);
+});
+var clothMeth = new THREE.Mesh(cloth.getGeometry(), clothMaterial);
+clothMeth.position.set(WIDTH / 2, -HEIGHT / 2, 0);
+
+// ポール
+var poleGeometry = new THREE.CylinderGeometry(5, 5, 500, 10, 0, true);
+var poleMaterial = new THREE.MeshPhongMaterial({ color: 0x999999, specular: 0xffffff });
+var poleMesh = new THREE.Mesh(poleGeometry, poleMaterial);
+poleMesh.position.x = 0;
+poleMesh.position.y = 0;
+
+group.add(clothMeth)
+group.add(poleMesh)
+
+export default group

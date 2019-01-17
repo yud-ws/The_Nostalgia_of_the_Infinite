@@ -50,6 +50,8 @@ export default class SubBuilding extends THREE.Object3D {
       new THREE.BoxGeometry(180, 20, 180),
       this.material
     )
+    top.castShadow = true
+    top.receiveShadow = true
     top.position.x = 60
     top.position.y = 120
     top.position.z = -90
@@ -71,6 +73,8 @@ export default class SubBuilding extends THREE.Object3D {
       new THREE.BoxGeometry(10, 100, 10, 10, 200),
       this.material
     )
+    pillar1.castShadow = true
+    pillar1.receiveShadow = true
     pillar1.position.y = 50
     pillar1.position.x = -15
     pillar1.position.z = -5
@@ -79,6 +83,8 @@ export default class SubBuilding extends THREE.Object3D {
       new THREE.BoxGeometry(10, 100, 10, 10, 200),
       this.material
     )
+    pillar2.castShadow = true
+    pillar2.receiveShadow = true
     pillar2.position.y = 50
     pillar2.position.x = 15
     pillar2.position.z = -5
@@ -106,6 +112,8 @@ export default class SubBuilding extends THREE.Object3D {
           ]
           const geo = new THREE.ConvexGeometry(curveVertices)
           const mesh = new THREE.Mesh(geo, this.material)
+          mesh.castShadow = true
+          mesh.receiveShadow = true
           curveFace.add(mesh)
         } else if (i >= 200) {
           const curveVertices = [
@@ -120,6 +128,8 @@ export default class SubBuilding extends THREE.Object3D {
           ]
           const geo = new THREE.ConvexGeometry(curveVertices)
           const mesh = new THREE.Mesh(geo, this.material)
+          mesh.castShadow = true
+          mesh.receiveShadow = true
           curveFace.add(mesh)
         }
       }
