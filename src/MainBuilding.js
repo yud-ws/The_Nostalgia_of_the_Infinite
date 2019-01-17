@@ -863,7 +863,7 @@ export default class MainBuilding extends THREE.Object3D {
     ]
 
     const triG = new THREE.ConvexGeometry(triV, 10)
-    console.log(triG)
+    // console.log(triG)
     const tri = new THREE.Mesh(triG, new THREE.MeshPhongMaterial({ color: '#ffd700' }))
     tri.castShadow = true
     tri.receiveShadow = true

@@ -56,6 +56,7 @@ function init() {
   scene.add(plane)
 
   const building1 = new MainBuilding()
+  building1.position.set(0, 0, 0)
   building1.castShadow = true
   building1.receiveShadow = true
   building1.rotation.y = -Math.PI / 6
@@ -77,9 +78,9 @@ function init() {
 
   // const triVertices = building.children[0].children[0].children[7].children[1].children[80].children[0].children[1].children
 
-  const DISTANCE = 25; // 旗を分割した頂点間の距離
-  const SEGMENTS_X = 10; // 旗のX軸の分割数
-  const SEGMENTS_Y = 10; // 旗のY軸の分割数
+  const DISTANCE = 1.3; // 旗を分割した頂点間の距離
+  const SEGMENTS_X = 5; // 旗のX軸の分割数
+  const SEGMENTS_Y = 13; // 旗のY軸の分割数
   const WIDTH = DISTANCE * SEGMENTS_X; // 旗の横幅
   const HEIGHT = DISTANCE * SEGMENTS_Y; // 旗の縦幅
 
@@ -90,24 +91,31 @@ function init() {
   clothTexture.wrapT = THREE.RepeatWrapping;
   clothTexture.anisotropy = 16;
   var clothMaterial = new THREE.MeshPhongMaterial({ specular: 0x000000, color: '#f0f', side: THREE.DoubleSide });
-  function pf(u, v) {
+  function pf(u, v, target) {
     var x = (u - 0.5) * DISTANCE * SEGMENTS_X
     var y = (v + 0.5) * DISTANCE * SEGMENTS_Y
     var z = 0
+    target.set(x, y, z)
     return new THREE.Vector3(x, y, z)
   }
-  var cloth = new Cloth(SEGMENTS_X, SEGMENTS_Y, DISTANCE, pf);
+  var cloth = new Cloth(SEGMENTS_X, SEGMENTS_Y, DISTANCE, pf, new THREE.Vector3());
   var clothMeth = new THREE.Mesh(cloth.getGeometry(), clothMaterial);
   clothMeth.position.set(WIDTH / 2, -HEIGHT / 2, 0);
-  scene.add(clothMeth);
+  // scene.add(clothMeth);
 
   // ポール
-  var poleGeometry = new THREE.CylinderGeometry(5, 5, 500, 10, 0, true);
+  var poleGeometry = new THREE.CylinderGeometry(1, 1, 50, 10, 0, true);
   var poleMaterial = new THREE.MeshPhongMaterial({ color: 0x999999, specular: 0xffffff });
   var poleMesh = new THREE.Mesh(poleGeometry, poleMaterial);
   poleMesh.position.x = 0;
-  poleMesh.position.y = 1000;
-  scene.add(poleMesh);
+  poleMesh.position.y = 0;
+  // scene.add(poleMesh);
+
+  const flag = new THREE.Object3D()
+  flag.add(clothMeth)
+  flag.add(poleMesh)
+  flag.position.set(0, 290, 0)
+  scene.add(flag)
 
   // -------------------------------------------------------------------------------------------------------------------------
 
@@ -127,7 +135,7 @@ function init() {
 }
 
 class Cloth {
-  constructor(segmentX, segmentY, distance, paramFunc) {
+  constructor(segmentX, segmentY, distance, paramFunc, tgt) {
     this.segmentX = segmentX;
     this.segmentY = segmentY;
     this.distance = distance;
@@ -143,7 +151,7 @@ class Cloth {
     for (v = 0; v <= this.segmentY; v++) {
       for (u = 0; u <= this.segmentX; u++) {
         this.particles.push(
-          new ClothParticle(u / this.segmentX, v / this.segmentY, 0, 0.1, this.paramFunc)
+          new ClothParticle(u / this.segmentX, v / this.segmentY, 0, 0.1, this.paramFunc, this.tgt)
         );
       }
     }
@@ -234,10 +242,10 @@ class Cloth {
 }
 
 class ClothParticle {
-  constructor(x, y, z, mass, paramFunc) {
-    this.position = paramFunc(x, y);
-    this.previous = paramFunc(x, y);
-    this.original = paramFunc(x, y);
+  constructor(x, y, z, mass, paramFunc, tgt) {
+    this.position = paramFunc(x, y, tgt);
+    this.previous = paramFunc(x, y, tgt);
+    this.original = paramFunc(x, y, tgt);
     this.mass = 1 / mass;
     this.vector = new THREE.Vector3(0, 0, 0);
     this.tmp = new THREE.Vector3();
